@@ -1,0 +1,68 @@
+MONGODB commands
+- mongosh
+to import json file
+- go to the file directory in terminal
+- create a database 
+--- mongosh
+--- show dbs (show database)
+--- use bggdb (create database with bggdb)
+--- show collections
+--- db.game.drop() --> drops game collection
+--- exit 
+--- mongoimport -hlocalhost --port=27017 -dbggdb -ccomment --jsonArray comment.json
+(-h is hostname, -c is collection)
+--- db.game.find({"gid":21}) --> find gid : 27
+--- db.game.find().sort({title:1})
+--- db.game.find().sort({gid:-1}) --> -1 for descending order
+--- db.game.find({name:/.*Getty*./}) --> find names with Getty
+--- db.game.find({name:/.*Getty*./}).count() --> count number of names with the word Getty
+--- db.dropDatabase()
+--- db.comments.createIndex({c_text: "text"}) (IMPORTANT TO CREATE INDEX!!!!)
+
+Deployment to railway
+On railway 
+- new project -> provision MongoDb 
+Under connect, copy the MongoDB command
+
+
+In terminal
+go to workshop then the json folder
+
+
+In terminal ,type: mongosh "mongodb://mongo:vxmr8MX0z0WZtgz2nlM8@containers-us-west-164.railway.app:6266"
+
+This is the password: vxmr8MX0z0WZtgz2nlM8
+
+Launch studio 3T
+copy mongodb://mongo:vxmr8MX0z0WZtgz2nlM8@containers-us-west-164.railway.app:6266 and paste it in new connection
+Click on next, save it and click on connect
+
+To import the data, go local, collections, click on import icon on top, then click configure
+then click on add source, select the json files
+
+Go to terminal again, go to the json folder path and connect by typing: mongosh "mongodb://mongo:vxmr8MX0z0WZtgz2nlM8@containers-us-west-164.railway.app:6266"
+
+in mongo shell:
+- use local
+- show collections (should have the json files)
+
+change application.properties url
+do nOT paste in password
+spring.data.mongodb.url=mongodb://mongo:{$MONGODB_PASSWORD}@containers-us-west-164.railway.app:6266
+Go to terminal under the workshop directory: export MONGODB_PASSWORD=vxmr8MX0z0WZtgz2nlM8
+
+
+Create an index in mongodb shell
+db.comment.createIndex({c_text:"text"})
+
+mongoimport --uri "mongodb://mongo:<password>@containers-us-west-156.railway.app:5612/workshop26" --authenticationDatabase=admin -cgame --jsonArray game.json
+
+in application.properties
+spring.data.mongodb.host=<your railway mongodb hostname>
+spring.data.mongodb.port=<your railway mongodb port>
+spring.data.mongodb.database=workshop26
+spring.data.mongodb.username=mongo
+spring.data.mongodb.password=${MONGODB_PASSWORD}
+spring.data.mongodb.authentication-database=admin
+
+db.reviews.find({_id:})

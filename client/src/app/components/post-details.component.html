@@ -1,0 +1,21 @@
+<h2>Post</h2>
+<h4>PostId: {{ post.postId }}</h4>
+<h4>Author: {{post.name}} </h4>
+<h4>Date: {{ post.postDate }}</h4>
+
+<h2> Title: {{ post.title }} </h2>
+
+<p> Coment: {{ post.text }} </p>
+
+<div>
+    <img src="{{ post.imageUrl }}" width="300">
+</div>
+
+<div>
+        <button type="button" (click)="vote('like')">
+                Like {{ post.like }}
+        </button>
+        <button type="button" (click)="vote('dislike')">
+                Dislike {{ post.dislike }}
+    </button>
+</div>
